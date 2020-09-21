@@ -20,7 +20,7 @@ services:
             - privlink-network
 
     nginx:
-	image: docker.io/lbois/nginx:latest
+	image: lbois/nginx
 	hostname: nginx
         container_name: nginx
         ports:
@@ -30,7 +30,7 @@ services:
             - privlink-network
 
     privback:
-	image: docker.io/lbois/privback:latest
+	image: lbois/privback
 	hhostname: privback
         container_name: privback
         depends_on:
