@@ -1,0 +1,50 @@
+version: "3.0"
+
+services:
+    neo4j:
+        image: neo4j:3.5.21
+        hostname: neo4j
+        container_name: neo4j
+        ports:
+            - "7474:7474"
+            - "7473:7473"
+            - "7687:7687"
+        volumes:
+            - ./neo4j/plugins:/plugins
+            - ./neo4j/data:/data
+            - ./neo4j/conf:/conf
+            - ./neo4j/logs:/logs
+        environment:
+            NEO4J_dbms_logs_debug_level: INFO
+        networks:
+            - privlink-network
+
+    nginx:
+	image: docker.io/lbois/nginx:latest
+	hostname: nginx
+        container_name: nginx
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            - privlink-network
+
+    privback:
+	image: docker.io/lbois/privback:latest
+	hhostname: privback
+        container_name: privback
+        depends_on:
+            - neo4j
+        ports:
+            - "3000:3000"
+#         volumes:
+#            - ./privback/data:/home/node/app/data
+        networks:
+            - privlink-network
+
+
+        
+
+networks:
+    privlink-network:
+        driver: bridge
