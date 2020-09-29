@@ -20,7 +20,7 @@ services:
             - privlink-network
 
     nginx:
-	image: lbois/nginx
+	image: lbois/nginx:latest
 	hostname: nginx
         container_name: nginx
         ports:
@@ -30,8 +30,8 @@ services:
             - privlink-network
 
     privback:
-	image: lbois/privback
-	hhostname: privback
+	image: lbois/privback:latest
+	hostname: privback
         container_name: privback
         depends_on:
             - neo4j
